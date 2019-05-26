@@ -54,4 +54,22 @@ class NewsController extends AbstractController
             'title'=> 'About'
         ]);
     }
+    /**
+     * @Route("/authors", name="authors")
+     */
+    public function authors()
+    {
+         return $this->render('blog/authors.html.twig', [
+             "title"=> "Authors",
+         ]);
+    }
+    /**
+     * @Route("/author", name="author")
+     */
+    public function author()
+    {
+        return $this->render('blog/author.html.twig', [
+            "title"=> "Author",
+        ]);
+    }
 }
