@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <section class="news">
+            {% for new in news %}
+                <article>
+                    <h2 class="text-dark">{{ new.title }}</h2>
+                    <div class="content">
+                        <img src="{{ new.image }}" alt="image">
+                        <br/>
+                        {{ new.content | raw}}
+                        <br/>
+                        <a href="{{ path('oneNew', {'id': new.id}) }}" class="btn btn-primary">Read More</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}

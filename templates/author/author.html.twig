@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <section>
+        <article>
+            <div class="container">
+                <h2 class="text-dark">Name: {{ author.name }}</h2>
+                <img src="{{ author.image }}" alt="here's a photo">
+                <p>Description: {{ author.description }}</p>
+            </div>
+        </article>
+    </section>
+{% endblock %}
