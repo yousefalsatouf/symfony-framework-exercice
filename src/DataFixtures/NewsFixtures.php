@@ -11,16 +11,6 @@ class NewsFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
-        for($n=1; $n<=10; $n++)
-        {
-            $news = new News();
-            $content = '<p>'.join($faker->paragraphs(5), '</p><p>').'</p>';
-            $news->setTitle($faker->sentence())
-                 ->setContent($content)
-                 ->setImage($faker->imageUrl());
-            $manager->persist($news);
-        }
-        $manager->flush();
+
     }
 }
