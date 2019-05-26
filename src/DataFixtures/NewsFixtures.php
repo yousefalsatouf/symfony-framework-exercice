@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Author;
+use App\Entity\Category;
 use App\Entity\News;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -21,41 +23,33 @@ class NewsFixtures extends Fixture
 
             $manager->persist($cat);
 
-            //now create between 3 and 6 articles ...
-            for ($a=1; $a<=mt_rand(4, 6); $a++)
+            // create the Authors ...
+            for ($a=1; $a<=mt_rand(2, 4); $a++)
             {
-                $prod = new News();
+                $auth = new Author();
+                $content = '<p>'.join($faker->paragraphs(2), '</p><p>').'</p>';
+                $auth->setName($faker->name)
+                    ->setImage($faker->imageUrl(300, 300))
+                    ->setDescription($content);
 
-                $content = '<p>'.join($faker->paragraphs(5), '</p><p>').'</p>';
-
-                $prod->setTitle($faker->sentence)
-                    ->setContent($content)
-                    ->setImage($faker->imageUrl(250))
-                    ->setCreatedAt($faker->dateTimeBetween('-6 months'))
-                    ->setCategory($cat);
-
-                $manager->persist($prod);
-
-                // create the comments ...
-                for ($m=1; $m<=mt_rand(4, 10); $m++)
+                $manager->persist($auth);
+                //now create between 3 and 6 articles ...
+                for ($a=1; $a<=mt_rand(4, 6); $a++)
                 {
-                    $com = new Comment();
-                    $content = '<p>'.join($faker->paragraphs(2), '</p><p>').'</p>';
-                    $now = new \DateTime();
-                    $interval = $now->diff($prod->getCreatedAt());
-                    $days = $interval->days;
-                    $min = '-'.$days.'days';
+                    $news = new News();
 
-                    $com->setAuthor($faker->name)
+                    $content = '<p>'.join($faker->paragraphs(5), '</p><p>').'</p>';
+
+                    $news->setTitle($faker->sentence)
                         ->setContent($content)
-                        ->setCreatedAt($faker->dateTimeBetween($min))
-                        ->setProduct($prod);
+                        ->setImage($faker->imageUrl(250))
+                        ->setCreatedAt($faker->dateTimeBetween('-6 months'))
+                        ->setCategory($cat);
 
-                    $manager->persist($com);
+                    $manager->persist($news);
                 }
             }
         }
-
         $manager->flush();
     }
 }

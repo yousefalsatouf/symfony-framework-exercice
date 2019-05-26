@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Author;
 use App\Entity\News;
+use App\Repository\AuthorRepository;
 use App\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +16,7 @@ class NewsController extends AbstractController
      */
     public function home()
     {
-        return $this->render('blog/authors.html.twig', [
+        return $this->render('blog/home.html.twig', [
             'title'=> 'Home'
         ]);
     }
@@ -52,6 +54,27 @@ class NewsController extends AbstractController
     {
         return $this->render('blog/about.html.twig', [
             'title'=> 'About'
+        ]);
+    }
+    /**
+     * @Route("/authors", name="authors")
+     */
+    public function authors(AuthorRepository $repo)
+    {
+        $authors = $repo->findAll();
+        return $this->render('author/authors.html.twig', [
+            'title'=> 'Authors',
+            'authors'=> $authors
+        ]);
+    }
+    /**
+     * @Route("/author/{id}", name="author")
+     */
+    public function author(Author $author)
+    {
+        return $this->render('author/author.html.twig', [
+            'title'=> 'Author',
+            'author'=> $author
         ]);
     }
 }
