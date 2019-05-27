@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <section>
+        <article>
+            <div class="container">
+                <h1 class="text-dark">These all the articles correspond to this author: </h1>
+                {% for articleAuthor in news %}
+                    <h1 class="text-dark">{{ articleAuthor.title }}</h1>
+                    <img src="{{ articleAuthor.image }}" alt="here is an image">
+                    <div class="content">
+                        {{ articleAuthor.description }}
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+    </section>
+{% endblock %}

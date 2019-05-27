@@ -2,13 +2,16 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
     <div class="container">
-        <article>
-            <h1 class="text-dark">{{ new.title }}</h1>
-            <div class="content">
-                <img src="{{ new.image }}" alt="image">
-                <br/>
-                {{ new.content | raw}}
-            </div>
-        </article>
+       <section>
+           <article>
+               <div class="container">
+                   <h1 class="text-dark">{{ new.title }}</h1>
+                   <img src="{{ new.image }}" alt="image">
+                   <div class="content">
+                       {{ new.content | raw}}
+                   </div>
+               </div>
+           </article>
+       </section>
     </div>
 {% endblock %}

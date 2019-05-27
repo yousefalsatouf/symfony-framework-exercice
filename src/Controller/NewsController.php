@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Author;
 use App\Entity\News;
 use App\Repository\AuthorRepository;
 use App\Repository\NewsRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -75,6 +77,21 @@ class NewsController extends AbstractController
         return $this->render('author/author.html.twig', [
             'title'=> 'Author',
             'author'=> $author
+        ]);
+    }
+    /**
+     * @Route("/articlesAuthor/{id}", name="articlesAuthor")
+     */
+    public function articlesAuthor(Author $author, ObjectManager $manager)
+    {
+        $news = new News();
+        $news->setAuthor($author);
+        $manager->persist($news);
+        $manager->flush();
+
+        return $this->render('author/articlesAuthor.html.twig', [
+            'title'=> 'Articles\'s Author',
+            'news'=> $news
         ]);
     }
 }
